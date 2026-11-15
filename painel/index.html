@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Painel de vendas</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<style>
+:root{--fundo:#f4f2ee;--cartao:#fff;--texto:#1d1b18;--suave:#6d675e;--linha:#e2ddd4;--destaque:#0f6b4f;--destaque-texto:#fff;--alerta:#b3261e;--aviso:#8a5a00;--marca:#e8f3ee}
+@media (prefers-color-scheme:dark){:root{--fundo:#141311;--cartao:#1f1d1a;--texto:#f1ede6;--suave:#a9a195;--linha:#34302a;--destaque:#4cc29a;--destaque-texto:#06241a;--alerta:#ff8a80;--aviso:#f0c060;--marca:#1b2c26}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:1px solid var(--linha);background:var(--cartao);border-radius:8px;padding:8px 12px}
+button.principal{background:var(--destaque);color:var(--destaque-texto);border-color:var(--destaque);font-weight:600}
+button:disabled{opacity:.5;cursor:default}
+input,select,textarea{width:100%;border:1px solid var(--linha);background:var(--cartao);border-radius:8px;padding:8px 10px}
+label{display:block;font-size:13px;color:var(--suave);margin:10px 0 4px}
+header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--linha);position:sticky;top:0;background:var(--fundo);z-index:2}
+header h1{font-size:17px;margin:0}
+.vivo{font-size:12px;color:var(--suave)}.vivo b{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--suave);margin-right:6px}.vivo.sim b{background:var(--destaque)}
+main{padding:16px;max-width:1500px;margin:0 auto}
+.entrada{max-width:360px;margin:12vh auto;background:var(--cartao);border:1px solid var(--linha);border-radius:14px;padding:22px}
+.entrada h2{margin:0 0 4px;font-size:20px}.entrada p{color:var(--suave);margin:0 0 8px}
+.erro{color:var(--alerta);font-size:13px;min-height:18px;margin-top:8px}
+.resumo{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
+.resumo div{background:var(--cartao);border:1px solid var(--linha);border-radius:10px;padding:10px 12px}
+.resumo span{display:block;font-size:12px;color:var(--suave)}.resumo strong{font-size:20px;font-variant-numeric:tabular-nums}
+.filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.filtros>*{flex:1 1 160px;width:auto}
+.quadro{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(230px,1fr);gap:12px;overflow-x:auto;padding-bottom:10px}
+.coluna h3{font-size:13px;margin:0 0 8px;color:var(--suave);text-transform:uppercase;letter-spacing:.04em;display:flex;justify-content:space-between}
+.cartao{display:block;width:100%;text-align:left;background:var(--cartao);border:1px solid var(--linha);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.cartao b{display:block;overflow-wrap:anywhere}.cartao small{color:var(--suave);display:block}
+.cartao .hoje{color:var(--aviso);font-weight:600}.cartao .atrasado{color:var(--alerta);font-weight:600}
+.vazio{color:var(--suave);font-size:13px;border:1px dashed var(--linha);border-radius:10px;padding:10px;text-align:center}
+dialog{border:1px solid var(--linha);border-radius:14px;background:var(--fundo);color:var(--texto);width:min(720px,calc(100vw - 24px));max-height:calc(100vh - 24px);padding:0}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+.ficha{padding:18px}.ficha h2{margin:0;font-size:20px;overflow-wrap:anywhere}.ficha .sub{color:var(--suave);margin:2px 0 10px}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.linha{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.msg{border:1px solid var(--linha);border-radius:10px;padding:10px 12px;margin-top:10px;background:var(--cartao)}
+.msg.agora{border-color:var(--destaque);background:var(--marca)}
+.msg h4{margin:0;font-size:14px}.msg em{font-size:12px;color:var(--suave)}
+.msg pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;margin:8px 0}
+.msg .dica{font-size:12px;color:var(--suave)}
+.hist{font-size:13px;color:var(--suave);margin:6px 0 0;padding-left:18px}
+a{color:var(--destaque)}
+@media (max-width:640px){.duas{grid-template-columns:1fr}.quadro{grid-auto-flow:row;grid-auto-columns:auto}.coluna.sem{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Painel de vendas</h1>
+  <span class="vivo" id="vivo"><b></b><span>desconectado</span></span>
+  <button id="sair" hidden>Sair</button>
+</header>
+<main id="app"></main>
+<dialog id="detalhe"></dialog>
+<script>
+"use strict";
+const URL_SUPABASE = "https://iuefkfcymvwvzjudvgph.supabase.co";
+const CHAVE_PUBLICA = "sb_publishable_noqU7LD5KqL9U2OSlTZTnA_XQOOiEYm"; // chave pública: os dados são protegidos pelas regras do banco
+const banco = supabase.createClient(URL_SUPABASE, CHAVE_PUBLICA);
+
+const ETAPAS = [
+  ["novo", "Novo", 0, "Mande a primeira mensagem com o link da demonstração. Sem preço."],
+  ["contatado", "1ª mensagem enviada", 1, "Sem resposta em dois dias? Mande a pergunta do cliente perdido."],
+  ["retorno", "Retorno enviado", 1, "Aguarde. Se responder com interesse, passe para Interessado."],
+  ["interessado", "Interessado", 2, "Ofereça as duas opções. Depois do preço, não mande mais nada até a resposta."],
+  ["proposta", "Preço enviado", 3, "Silêncio depois do preço. Só se ficar em dúvida, ofereça a semana de teste."],
+  ["teste", "Semana de teste", -1, "O site está no ar por uma semana. Combine a data para conversar de novo."],
+  ["fechado", "Fechado", -1, ""],
+  ["perdido", "Perdido", -1, ""],
+];
+const NOME_ETAPA = Object.fromEntries(ETAPAS.map(e => [e[0], e[1]]));
+let leads = [], equipe = [], eu = "", aberto = null, filtro = { texto: "", responsavel: "" };
+
+function el(tag, attrs = {}, ...filhos) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") n.className = v; else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+    else if (v === true) n.setAttribute(k, ""); else if (v !== false && v != null) n.setAttribute(k, v);
+  }
+  for (const f of filhos.flat()) if (f != null && f !== false) n.append(f.nodeType ? f : document.createTextNode(String(f)));
+  return n;
+}
+const $ = id => document.getElementById(id);
+const reais = v => "R$ " + Number(v || 0).toLocaleString("pt-BR");
+const hoje = () => new Date().toLocaleDateString("sv-SE");
+const dataBr = d => d ? d.split("-").reverse().join("/") : "";
+function zap(lead, texto) {
+  let n = String(lead.whatsapp || lead.telefone || "").replace(/\D/g, "");
+  if (!n) return "";
+  if (n.length <= 11) n = "55" + n;
+  return "https://wa.me/" + n + "?text=" + encodeURIComponent(texto);
+}
+function linkSeguro(u) { try { const x = new URL(u); return x.protocol === "https:" || x.protocol === "http:" ? x.href : ""; } catch { return ""; } }
+
+async function iniciar() {
+  const { data } = await banco.auth.getSession();
+  banco.auth.onAuthStateChange((_e, s) => { const novo = s?.user?.email || ""; if (novo !== eu) { eu = novo; eu ? carregar() : telaEntrada(); } });
+  eu = data.session?.user?.email || "";
+  eu ? carregar() : telaEntrada();
+}
+
+function telaEntrada(aviso = "") {
+  $("sair").hidden = true;
+  const email = el("input", { type: "email", autocomplete: "email", required: true });
+  const senha = el("input", { type: "password", autocomplete: "current-password", required: true, minlength: 8 });
+  const erro = el("div", { class: "erro" }, aviso);
+  async function entrar(criar) {
+    erro.textContent = "";
+    if (!email.value || senha.value.length < 8) { erro.textContent = "Informe o e-mail e uma senha com 8 caracteres ou mais."; return; }
+    const dados = { email: email.value.trim().toLowerCase(), password: senha.value };
+    const r = criar ? await banco.auth.signUp({ ...dados, options: { emailRedirectTo: location.origin + location.pathname } })
+                    : await banco.auth.signInWithPassword(dados);
+    if (r.error) erro.textContent = criar ? "Não foi possível criar a conta. Confira se o seu e-mail foi incluído na equipe." : "E-mail ou senha incorretos, ou e-mail ainda não confirmado.";
+    else if (criar && !r.data.session) erro.textContent = "Conta criada. Abra o e-mail de confirmação e depois entre aqui.";
+  }
+  $("app").replaceChildren(el("form", { class: "entrada", onsubmit: e => { e.preventDefault(); entrar(false); } },
+    el("h2", {}, "Entrar"), el("p", {}, "Acesso só para a equipe de vendas."),
+    el("label", {}, "E-mail"), email, el("label", {}, "Senha"), senha,
+    el("div", { class: "linha" }, el("button", { class: "principal", type: "submit" }, "Entrar"),
+      el("button", { type: "button", onclick: () => entrar(true) }, "Primeiro acesso: criar senha")), erro));
+}
+
+async function carregar() {
+  const [l, q] = await Promise.all([banco.from("leads").select("*").order("nome"), banco.from("equipe").select("email,nome").order("nome")]);
+  if (l.error || q.error) { telaEntrada("Não consegui carregar os dados. Tente entrar de novo."); return; }
+  if (!q.data.length) { await banco.auth.signOut(); telaEntrada("Este e-mail não está na equipe do painel."); return; }
+  leads = l.data; equipe = q.data;
+  $("sair").hidden = false;
+  desenhar();
+  await banco.removeAllChannels();
+  banco.channel("vendas")
+    .on("postgres_changes", { event: "*", schema: "public", table: "leads" }, m => {
+      if (m.eventType === "DELETE") leads = leads.filter(x => x.slug !== m.old.slug);
+      else { const i = leads.findIndex(x => x.slug === m.new.slug); i < 0 ? leads.push(m.new) : leads[i] = m.new; }
+      desenhar();
+      if (aberto && m.new && m.new.slug === aberto && !$("detalhe").dataset.editando) abrir(aberto);
+    })
+    .subscribe(estado => { const v = $("vivo"); v.classList.toggle("sim", estado === "SUBSCRIBED"); v.lastChild.textContent = estado === "SUBSCRIBED" ? "ao vivo" : "reconectando"; });
+}
+
+function nomeDe(email) { const p = equipe.find(e => e.email === email); return p ? (p.nome || p.email) : (email || ""); }
+
+function desenhar() {
+  const t = filtro.texto.toLowerCase();
+  const visiveis = leads.filter(l => (!t || [l.nome, l.ramo, l.cidade, l.bairro].join(" ").toLowerCase().includes(t))
+    && (!filtro.responsavel || (filtro.responsavel === "-" ? !l.responsavel : l.responsavel === filtro.responsavel)));
+  const conta = e => leads.filter(l => l.etapa === e).length;
+  const fechados = leads.filter(l => l.etapa === "fechado");
+  const pendentes = leads.filter(l => l.proximo_contato && l.proximo_contato <= hoje() && !["fechado", "perdido"].includes(l.etapa)).length;
+  const resumo = el("div", { class: "resumo" },
+    [["Leads", leads.length], ["Em conversa", leads.length - conta("novo") - conta("fechado") - conta("perdido")],
+     ["Para falar hoje", pendentes], ["Fechados", fechados.length],
+     ["Sites vendidos", reais(fechados.filter(l => l.plano !== "mensal").reduce((s, l) => s + Number(l.valor || 0), 0))],
+     ["Mensalidades", reais(fechados.filter(l => l.plano === "mensal").reduce((s, l) => s + Number(l.valor || 0), 0)) + "/mês"]]
+      .map(([r, v]) => el("div", {}, el("span", {}, r), el("strong", {}, v))));
+  const busca = el("input", { type: "search", placeholder: "Buscar por nome, ramo ou cidade", value: filtro.texto, "aria-label": "Buscar",
+    oninput: e => { filtro.texto = e.target.value; desenharQuadro(); } });
+  const quem = el("select", { "aria-label": "Responsável", onchange: e => { filtro.responsavel = e.target.value; desenhar(); } },
+    el("option", { value: "" }, "Todos os responsáveis"), el("option", { value: "-" }, "Sem responsável"),
+    equipe.map(p => el("option", { value: p.email }, p.nome || p.email)));
+  quem.value = filtro.responsavel;
+  const quadro = el("div", { class: "quadro", id: "quadro" });
+  const foco = document.activeElement && document.activeElement.type === "search";
+  $("app").replaceChildren(resumo, el("div", { class: "filtros" }, busca, quem), quadro);
+  desenharQuadro(visiveis);
+  if (foco) { busca.focus(); busca.setSelectionRange(busca.value.length, busca.value.length); }
+}
+
+function desenharQuadro(lista) {
+  if (!lista) { desenhar(); return; }
+  $("quadro").replaceChildren(...ETAPAS.map(([id, nome]) => {
+    const itens = lista.filter(l => l.etapa === id).sort((a, b) => (a.proximo_contato || "9") < (b.proximo_contato || "9") ? -1 : 1);
+    return el("section", { class: "coluna" + (itens.length ? "" : " sem") }, el("h3", {}, nome, el("span", {}, itens.length)),
+      itens.length ? itens.map(l => {
+        const d = l.proximo_contato, classe = d && d < hoje() ? "atrasado" : d === hoje() ? "hoje" : "";
+        return el("button", { class: "cartao", onclick: () => abrir(l.slug) }, el("b", {}, l.nome),
+          el("small", {}, [l.ramo, l.cidade].filter(Boolean).join(" · ")),
+          l.responsavel && el("small", {}, "Com " + nomeDe(l.responsavel)),
+          d && el("small", { class: classe }, "Falar em " + dataBr(d)),
+          !l.demo_url && el("small", {}, "Sem demonstração publicada"));
+      }) : el("div", { class: "vazio" }, "Nenhum"));
+  }));
+}
+
+async function abrir(slug) {
+  const l = leads.find(x => x.slug === slug); if (!l) return;
+  aberto = slug;
+  const d = $("detalhe"); delete d.dataset.editando;
+  const etapa = ETAPAS.find(e => e[0] === l.etapa) || ETAPAS[0];
+  const marcar = () => { d.dataset.editando = "1"; };
+  const campo = (rotulo, n) => el("div", {}, el("label", {}, rotulo), n);
+  const sEtapa = el("select", { onchange: marcar }, ETAPAS.map(e => el("option", { value: e[0] }, e[1]))); sEtapa.value = l.etapa;
+  const sQuem = el("select", { onchange: marcar }, el("option", { value: "" }, "Ninguém"), equipe.map(p => el("option", { value: p.email }, p.nome || p.email))); sQuem.value = l.responsavel || "";
+  const sPlano = el("select", { onchange: marcar }, el("option", { value: "" }, "A definir"), el("option", { value: "site" }, "Só o site"), el("option", { value: "mensal" }, "Site com acompanhamento mensal")); sPlano.value = l.plano || "";
+  const iValor = el("input", { type: "number", min: 0, step: 1, value: l.valor ?? "", oninput: marcar, placeholder: "Valor combinado em R$" });
+  const iData = el("input", { type: "date", value: l.proximo_contato || "", oninput: marcar });
+  const tObs = el("textarea", { rows: 3, oninput: marcar }); tObs.value = l.observacoes || "";
+  const erro = el("div", { class: "erro" });
+  const salvar = el("button", { class: "principal", onclick: async () => {
+    salvar.disabled = true;
+    const r = await banco.from("leads").update({ etapa: sEtapa.value, responsavel: sQuem.value || null, plano: sPlano.value || null,
+      valor: iValor.value === "" ? null : Number(iValor.value), proximo_contato: iData.value || null, observacoes: tObs.value }).eq("slug", slug);
+    salvar.disabled = false;
+    if (r.error) erro.textContent = "Não consegui salvar. Tente de novo."; else { delete d.dataset.editando; d.close(); }
+  } }, "Salvar");
+  const demo = linkSeguro(l.demo_url);
+  const msgs = (Array.isArray(l.mensagens) ? l.mensagens : []).map((m, i) => {
+    const texto = String(m.texto || ""), falta = texto.includes("{{LINK_DA_DEMO}}"), link = falta ? "" : zap(l, texto);
+    return el("div", { class: "msg" + (i === etapa[2] ? " agora" : "") }, el("h4", {}, (i + 1) + ". " + (m.quando || "")), el("em", {}, m.ideia || ""),
+      el("pre", {}, texto), el("div", { class: "dica" }, falta ? "Publique a demonstração no PC antes de enviar esta mensagem." : (m.dica || "")),
+      el("div", { class: "linha" }, link && el("a", { href: link, target: "_blank", rel: "noopener" }, el("button", {}, "Abrir no WhatsApp")),
+        el("button", { disabled: falta, onclick: e => navigator.clipboard.writeText(texto).then(() => { e.target.textContent = "Copiado"; }) }, "Copiar")));
+  });
+  const hist = el("ul", { class: "hist" });
+  d.replaceChildren(el("div", { class: "ficha" },
+    el("h2", {}, l.nome), el("p", { class: "sub" }, [l.ramo, l.bairro, l.cidade, l.nota ? "nota " + String(l.nota).replace(".", ",") + " (" + (l.avaliacoes || 0) + " avaliações)" : ""].filter(Boolean).join(" · ")),
+    el("div", { class: "linha" }, demo ? el("a", { href: demo, target: "_blank", rel: "noopener" }, "Ver a demonstração") : el("span", { class: "dica" }, "Demonstração ainda não publicada."),
+      linkSeguro(l.link_maps) && el("a", { href: linkSeguro(l.link_maps), target: "_blank", rel: "noopener" }, "Google Maps"),
+      (l.whatsapp || l.telefone) && el("span", {}, l.whatsapp || l.telefone)),
+    etapa[3] && el("p", {}, el("b", {}, "Próximo passo: "), etapa[3]),
+    el("div", { class: "duas" }, campo("Etapa", sEtapa), campo("Responsável", sQuem), campo("Opção escolhida", sPlano), campo("Valor", iValor), campo("Próximo contato", iData)),
+    campo("Observações", tObs), erro,
+    el("div", { class: "linha" }, salvar, el("button", { onclick: () => d.close() }, "Fechar")),
+    el("h3", {}, "Mensagens"), msgs.length ? msgs : el("p", { class: "dica" }, "As mensagens aparecem depois da próxima sincronização do PC."),
+    el("h3", {}, "Histórico"), hist));
+  if (!d.open) d.showModal();
+  const h = await banco.from("historico").select("email,de,para,criado_em").eq("slug", slug).order("criado_em", { ascending: false }).limit(20);
+  hist.replaceChildren(...((h.data || []).length ? h.data.map(x => el("li", {}, new Date(x.criado_em).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }) + ": " + nomeDe(x.email) + " moveu de " + (NOME_ETAPA[x.de] || x.de) + " para " + (NOME_ETAPA[x.para] || x.para)))
+    : [el("li", {}, "Sem movimentações ainda.")]));
+}
+$("detalhe").addEventListener("close", () => { aberto = null; });
+$("sair").addEventListener("click", () => banco.auth.signOut());
+iniciar();
+</script>
+</body>
+</html>
