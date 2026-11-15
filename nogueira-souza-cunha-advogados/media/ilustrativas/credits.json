@@ -1,0 +1,105 @@
+{
+ "note": "Credits for the photographs in this folder: photos.mjs credits prints the footer block for the ones the pages use.",
+ "photos": [
+  {
+   "file": "photo-d183.webp",
+   "files": [
+    "photo-d183-500.webp",
+    "photo-d183-960.webp",
+    "photo-d183.webp"
+   ],
+   "id": "d183",
+   "alt": "Open blank notebook with a ribbon marker and a pencil lying across the pages on a dark wooden table",
+   "by": "Jan Kahánek",
+   "licence": "CC0",
+   "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "page": "https://commons.wikimedia.org/wiki/File:Tabel_day_1_(Unsplash).jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-c877.webp",
+   "files": [
+    "photo-c877-500.webp",
+    "photo-c877-960.webp",
+    "photo-c877.webp"
+   ],
+   "id": "c877",
+   "alt": "Close-up of soft-focus stacked books showing page edges and covers with no readable spines",
+   "by": "Nenad Stojkovic",
+   "licence": "CC BY 2.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by/2.0/",
+   "page": "https://commons.wikimedia.org/wiki/File:Close-up_of_stacked_books._(51539890528).jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f83119900-960.webp",
+   "files": [
+    "photo-f83119900-500.webp",
+    "photo-f83119900-960.webp"
+   ],
+   "id": "f83119900",
+   "alt": "Hampshire County Law Books",
+   "by": "Whoisjohngalt",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Hampshire_County_Law_Books.jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f135623799-960.webp",
+   "files": [
+    "photo-f135623799-500.webp",
+    "photo-f135623799-960.webp"
+   ],
+   "id": "f135623799",
+   "alt": "Books on shelf at the Ghalib Chamber Law Library",
+   "by": "Linason Blessing",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Books_on_shelf_at_the_Ghalib_Chamber_Law_Library.jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f136327304.webp",
+   "files": [
+    "photo-f136327304-500.webp",
+    "photo-f136327304-960.webp",
+    "photo-f136327304.webp"
+   ],
+   "id": "f136327304",
+   "alt": "Ghalib Law Library Books on the shelve",
+   "by": "Iliaswiki23",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Ghalib_Law_Library_Books_on_the_shelve.jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f135776217-500.webp",
+   "files": [
+    "photo-f135776217-500.webp"
+   ],
+   "id": "f135776217",
+   "alt": "Law library",
+   "by": "Saada.abdool",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Law_library.jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f135781215-960.webp",
+   "files": [
+    "photo-f135781215-500.webp",
+    "photo-f135781215-960.webp"
+   ],
+   "id": "f135781215",
+   "alt": "Decreti originali per mese, 1857 - Grande Archivio di Stato, Napoli",
+   "by": "Mattia Luigi Nappi",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Decreti_originali_per_mese,_1857_-_Grande_Archivio_di_Stato,_Napoli.jpg",
+   "source": "Wikimedia Commons"
+  }
+ ]
+}

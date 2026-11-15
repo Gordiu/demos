@@ -1,0 +1,6 @@
+:HL["/demos/nogueira-souza-cunha-advogados/_next/static/chunks/28x9u-pt2ajzp.css","style"]
+:HL["/demos/nogueira-souza-cunha-advogados/_next/static/media/82450a180bcad83c-s.p.0p-wng2nn8o-p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/demos/nogueira-souza-cunha-advogados/_next/static/media/d236bb4c0caf68e4-s.p.14og3_uq6yls0.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/demos/nogueira-souza-cunha-advogados/_next/static/media/faf223fcebdab05f-s.p.0rrr4v4rsoo3q.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+1:[["children",{"s":"__PAGE__","h":160}]]
+0:{"b":"uJQ2aeAUmoS58H4vCBnDt","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

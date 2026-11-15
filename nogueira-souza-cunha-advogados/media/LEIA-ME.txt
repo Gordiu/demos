@@ -1,0 +1,14 @@
+COMO TROCAR AS IMAGENS E O VÍDEO DO SITE
+
+Vídeo do topo (hero)
+1. Coloque o vídeo em public/media/video/ (ex.: hero.mp4, MP4 H.264, sem áudio, até ~8 MB, 1920x1080).
+2. Em src/conteudo.ts, no bloco "video", preencha:
+     src: m("video/hero.mp4"),
+     poster: m("video/hero-poster.jpg"),   // um quadro do vídeo, em JPG
+3. Com src vazio (""), o topo mostra só a imagem do poster. O vídeo toca em loop, mudo e inline.
+
+Fotos
+- As fotos em public/media/ilustrativas/ são ilustrativas (Wikimedia Commons, licenças nos créditos do rodapé).
+  Não são do escritório. Substitua por fotos reais (fachada, sala de reunião, equipe) e troque os
+  caminhos em src/conteudo.ts (campos poster, img e alt).
+- Se trocar as fotos, atualize também o texto "creditos" em src/conteudo.ts.
