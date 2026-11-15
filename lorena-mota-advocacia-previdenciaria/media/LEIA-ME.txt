@@ -1,0 +1,17 @@
+COMO TROCAR A MÍDIA DO HERO
+
+Hoje o hero usa uma foto ilustrativa licenciada (media/foto/photo-f200922650-960.webp),
+porque o escritório ainda não tem vídeo nem fotos próprias.
+
+Para usar um vídeo:
+1. Coloque o arquivo nesta pasta, por exemplo public/media/hero.mp4
+   (MP4 H.264, sem áudio, 8 a 15 s, até ~4 MB, vertical ou 4:5 funciona melhor no quadro recortado).
+2. Coloque uma imagem de capa (primeiro quadro do vídeo), por exemplo public/media/hero.jpg.
+3. Em src/conteudo.ts, preencha:
+     video: { src: `${base}/media/hero.mp4`, poster: `${base}/media/hero.jpg`, alt: "..." }
+   O vídeo toca em loop, mudo e inline. Com src vazio, só a imagem do poster aparece.
+
+Para trocar as fotos da seção "O escritório, em quatro quadros": edite foto e alt de cada
+capítulo em narrativa.capitulos (src/conteudo.ts).
+Ideal: fotos reais (fachada, sala de atendimento, a Dra. Lorena), com autorização da dona.
+Atualize o texto de "creditos" em src/conteudo.ts ao trocar as fotos.

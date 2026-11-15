@@ -1,0 +1,96 @@
+{
+ "note": "Credits for the photographs in this folder: photos.mjs credits prints the footer block for the ones the pages use.",
+ "photos": [
+  {
+   "file": "photo-c877.webp",
+   "files": [
+    "photo-c877-500.webp",
+    "photo-c877-960.webp",
+    "photo-c877-1280.webp",
+    "photo-c877.webp"
+   ],
+   "id": "c877",
+   "alt": "Close-up of soft-focus stacked books showing page edges and covers with no readable spines",
+   "by": "Nenad Stojkovic",
+   "licence": "CC BY 2.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by/2.0/",
+   "page": "https://commons.wikimedia.org/wiki/File:Close-up_of_stacked_books._(51539890528).jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-d183.webp",
+   "files": [
+    "photo-d183-500.webp",
+    "photo-d183-960.webp",
+    "photo-d183.webp"
+   ],
+   "id": "d183",
+   "alt": "Open blank notebook with a ribbon marker and a pencil lying across the pages on a dark wooden table",
+   "by": "Jan Kahánek",
+   "licence": "CC0",
+   "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "page": "https://commons.wikimedia.org/wiki/File:Tabel_day_1_(Unsplash).jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f186148983.webp",
+   "files": [
+    "photo-f186148983-500.webp",
+    "photo-f186148983-960.webp",
+    "photo-f186148983.webp"
+   ],
+   "id": "f186148983",
+   "alt": "Elderly couple enjoys coffee together in a cozy living room",
+   "by": "Shixart1985",
+   "licence": "CC BY 2.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Elderly_couple_enjoys_coffee_together_in_a_cozy_living_room.jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f89581765.webp",
+   "files": [
+    "photo-f89581765-500.webp",
+    "photo-f89581765-960.webp",
+    "photo-f89581765.webp"
+   ],
+   "id": "f89581765",
+   "alt": "Elderly Man's Hands (7760356574)",
+   "by": "Tony Alter from Newport News, USA",
+   "licence": "CC BY 2.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Elderly_Man%27s_Hands_(7760356574).jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f187578992.webp",
+   "files": [
+    "photo-f187578992-500.webp",
+    "photo-f187578992-960.webp",
+    "photo-f187578992.webp"
+   ],
+   "id": "f187578992",
+   "alt": "Details of the hands of an elderly woman crocheting a curtain 02",
+   "by": "Miluša Snidová",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Details_of_the_hands_of_an_elderly_woman_crocheting_a_curtain_02.jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f200922650.webp",
+   "files": [
+    "photo-f200922650-500.webp",
+    "photo-f200922650-960.webp",
+    "photo-f200922650.webp"
+   ],
+   "id": "f200922650",
+   "alt": "Elderly man shows hands with dirt stains after working outdoors on a sunny day",
+   "by": "Shixart1985",
+   "licence": "CC BY 2.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Elderly_man_shows_hands_with_dirt_stains_after_working_outdoors_on_a_sunny_day.jpg",
+   "source": "Wikimedia Commons"
+  }
+ ]
+}
