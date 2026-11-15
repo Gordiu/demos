@@ -1,0 +1,5 @@
+:HL["/demos/kavernna-do-acai/_next/static/chunks/32ctu98b97zzb.css","style"]
+:HL["/demos/kavernna-do-acai/_next/static/media/d5d24d76f75e2625-s.p.1sj2vuw194_rx.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/demos/kavernna-do-acai/_next/static/media/dbbe0bdf1677c96d-s.p.1f6jmcp_5f-6f.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+1:[["children",{"s":"__PAGE__","h":160}]]
+0:{"b":"_tb4bqM_VrJPUocKp1Qek","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

@@ -1,0 +1,1 @@
+Para usar vídeo no topo, coloque o arquivo em public/media/hero.mp4 (até 400 KB, sem áudio) e o poster em public/media/hero.jpg, e preencha video.src e video.poster em src/conteudo.ts (por exemplo "/media/hero.mp4" e "/media/hero.jpg"). Com video.src vazio, o topo usa a cena em SVG.
