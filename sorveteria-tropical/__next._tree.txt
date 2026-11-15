@@ -1,0 +1,4 @@
+:HL["/demos/sorveteria-tropical/_next/static/chunks/2--lj-k92da1r.css","style"]
+:HL["https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500&display=swap","style"]
+1:[["children",{"s":"__PAGE__","h":160}]]
+0:{"b":"H7NeCjSbRWMeFPmWAzqa2","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
