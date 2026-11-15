@@ -1,0 +1,21 @@
+MÍDIA DO SITE
+=============
+
+Hoje o hero usa uma FOTO ILUSTRATIVA (CC0, Wikimedia Commons), porque o cliente
+ainda não enviou vídeo nem fotos próprias.
+
+Para colocar um VÍDEO no hero:
+1. Coloque o arquivo aqui, por exemplo: public/media/hero.mp4
+   (MP4 H.264, sem áudio, 8 a 15 s, até ~4 MB, 1920x1080).
+2. Em src/conteudo.ts, no bloco "video", preencha:
+     src: "media/hero.mp4",
+     poster: "media/hero-poster.jpg"   (um quadro do vídeo, para carregar rápido)
+3. Rode npm run build.
+
+Sem "src", o hero mostra só o poster. O vídeo toca mudo, em loop e inline.
+
+Para trocar as FOTOS ilustrativas por fotos reais do consultório:
+- Coloque as imagens em public/media/cliente/ e troque os caminhos em src/conteudo.ts
+  (video.poster, camera.foto, servicos.foto) e os textos alt.
+- Confirme com o Matheus a autorização de uso de cada foto antes de publicar.
+- Retire o crédito das fotos ilustrativas no rodapé (src/app/page.tsx) quando não forem mais usadas.
