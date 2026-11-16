@@ -1,0 +1,5 @@
+:HL["/demos/valdecy-cabeleireiro-coromandel-mg-coromandel/_next/static/chunks/22hv0kuqik_z5.css","style"]
+:HL["https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500&display=swap","style"]
+:HL["/demos/valdecy-cabeleireiro-coromandel-mg-coromandel/media/cliente/logo-938c132129638046bb5f.webp","image"]
+1:[["children",{"s":"__PAGE__","h":160}]]
+0:{"b":"-rLmApvmiax3jd-Y5HVk9","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

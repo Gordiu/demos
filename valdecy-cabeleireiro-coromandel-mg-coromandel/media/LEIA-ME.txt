@@ -1,0 +1,4 @@
+Coloque aqui as imagens e os vídeos do site.
+- cliente/  fotos da própria empresa (copiadas de leads/<slug>/imagens/)
+- Para trocar o vídeo ou a foto do hero, edite src/conteudo.ts.
+As fotos são convertidas para WebP e as que não forem usadas saem da publicação (tools/otimizar.py).
